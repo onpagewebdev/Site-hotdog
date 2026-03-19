@@ -31,6 +31,7 @@ body {
   color: var(--color-text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* Evita rolagem horizontal indesejada */
 }
 
 img {
@@ -49,7 +50,7 @@ a {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1.5rem; /* Margem lateral garantida para mobile */
 }
 
 /* ===== Header ===== */
@@ -72,7 +73,7 @@ a {
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
@@ -81,11 +82,12 @@ a {
 .header-cta {
   background: var(--color-primary);
   color: var(--color-text);
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1rem;
   border-radius: 100px;
   font-weight: 600;
   font-size: 0.875rem;
   transition: var(--transition);
+  text-align: center;
 }
 
 .header-cta:hover {
@@ -120,10 +122,10 @@ a {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    to right,
-    rgba(13, 13, 13, 0.95) 0%,
-    rgba(13, 13, 13, 0.7) 50%,
-    rgba(13, 13, 13, 0.4) 100%
+    to top,
+    rgba(13, 13, 13, 0.95) 10%,
+    rgba(13, 13, 13, 0.7) 60%,
+    rgba(13, 13, 13, 0.3) 100%
   );
 }
 
@@ -131,7 +133,9 @@ a {
   position: relative;
   z-index: 1;
   max-width: 640px;
-  padding: 4rem 0;
+  /* O erro estava aqui. Separamos o top/bottom para não zerar as laterais do .container */
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .hero-tagline {
@@ -147,34 +151,39 @@ a {
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  /* Tamanho mínimo ajustado para 1.8rem para quebrar melhor no mobile */
+  font-size: clamp(1.8rem, 8vw, 4rem); 
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.2;
   letter-spacing: -0.03em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   text-wrap: balance;
 }
 
 .hero-description {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--color-text-muted);
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   max-width: 480px;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
+/* ===== Botões Padrão ===== */
 .cta-button {
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   align-items: center;
   gap: 0.75rem;
   background: var(--color-whatsapp);
   color: var(--color-background);
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   border-radius: 100px;
   font-weight: 600;
   font-size: 1rem;
   transition: var(--transition);
   box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+  width: 100%;
+  max-width: 400px; /* Garante que não fique gigante em telas médias */
 }
 
 .cta-button:hover {
@@ -185,11 +194,12 @@ a {
 .whatsapp-icon {
   width: 24px;
   height: 24px;
+  flex-shrink: 0;
 }
 
 /* ===== Features Section ===== */
 .features {
-  padding: 6rem 0;
+  padding: 4rem 0;
   background: var(--color-background);
 }
 
@@ -203,11 +213,11 @@ a {
 }
 
 .section-title {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.75rem, 6vw, 3rem);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.2;
   letter-spacing: -0.02em;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   text-wrap: balance;
 }
 
@@ -221,7 +231,7 @@ a {
   background: var(--color-surface);
   border: 1px solid var(--color-surface-light);
   border-radius: 16px;
-  padding: 2rem;
+  padding: 1.5rem;
   transition: var(--transition);
 }
 
@@ -232,7 +242,7 @@ a {
 
 .feature-number {
   display: block;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--color-primary);
   opacity: 0.3;
@@ -249,19 +259,19 @@ a {
 .feature-text {
   color: var(--color-text-muted);
   font-size: 0.9375rem;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 /* ===== About Section ===== */
 .about {
-  padding: 6rem 0;
+  padding: 4rem 0;
   background: var(--color-surface);
 }
 
 .about-content {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 3rem;
+  gap: 2rem;
   align-items: center;
 }
 
@@ -284,17 +294,18 @@ a {
 
 .about-description {
   color: var(--color-text-muted);
-  font-size: 1.0625rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.7;
   margin-bottom: 1.5rem;
 }
 
 .about-stats {
   display: flex;
-  gap: 3rem;
+  gap: 1.5rem;
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid var(--color-surface-light);
+  flex-wrap: wrap;
 }
 
 .stat {
@@ -303,7 +314,7 @@ a {
 }
 
 .stat-number {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--color-secondary);
   line-height: 1;
@@ -317,17 +328,21 @@ a {
 
 /* ===== CTA Section ===== */
 .cta-section {
-  padding: 6rem 0;
+  padding: 4rem 0;
   background: var(--color-background);
   text-align: center;
 }
 
 .cta-content {
   max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .cta-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2rem, 6vw, 4rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   margin-bottom: 1rem;
@@ -335,34 +350,31 @@ a {
 
 .cta-description {
   color: var(--color-text-muted);
-  font-size: 1.125rem;
+  font-size: 1rem;
   margin-bottom: 2rem;
 }
 
 .cta-button-large {
-  padding: 1.25rem 2.5rem;
+  padding: 1rem 2rem;
   font-size: 1.125rem;
 }
 
 .cta-location {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 0.5rem;
   color: var(--color-text-muted);
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   margin-top: 2rem;
-}
-
-.location-icon {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
+  text-align: center;
 }
 
 /* ===== Footer ===== */
 .footer {
   padding: 2rem 0;
   border-top: 1px solid var(--color-surface);
+  padding-bottom: 6rem;
 }
 
 .footer-content {
@@ -406,22 +418,44 @@ a {
   fill: white;
 }
 
-/* ===== Responsive Design ===== */
+/* ===== Responsive Design (Tablet e Desktop) ===== */
 @media (min-width: 768px) {
+  
+  .header-cta {
+    padding: 0.75rem 1.5rem;
+  }
+
   .hero-overlay {
     background: linear-gradient(
       to right,
-      rgba(13, 13, 13, 0.9) 0%,
-      rgba(13, 13, 13, 0.6) 40%,
+      rgba(13, 13, 13, 0.95) 0%,
+      rgba(13, 13, 13, 0.7) 50%,
       rgba(13, 13, 13, 0.2) 100%
     );
+  }
+
+  .cta-button {
+    width: auto;
+    display: inline-flex;
   }
   
   .about-content {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
   }
+
+  .about-stats {
+    gap: 3rem;
+  }
   
+  .cta-location {
+    flex-direction: row;
+  }
+
+  .footer {
+    padding-bottom: 2rem;
+  }
+
   .footer-content {
     flex-direction: row;
     justify-content: space-between;
@@ -429,17 +463,10 @@ a {
 }
 
 @media (min-width: 1024px) {
-  .features {
-    padding: 8rem 0;
-  }
-  
-  .about {
-    padding: 8rem 0;
-  }
-  
-  .cta-section {
-    padding: 8rem 0;
-  }
+  .features { padding: 8rem 0; }
+  .about { padding: 8rem 0; }
+  .cta-section { padding: 8rem 0; }
+  .hero-description { font-size: 1.125rem; }
 }
 
 /* ===== Animations ===== */
